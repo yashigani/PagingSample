@@ -7,51 +7,13 @@
 //
 
 #import "SampleViewController.h"
+#import "DummyView.h"
 
 #define SPACE_WIDTH 20
 #define CONTENT_NUM 5
 
 //#define REVEALS 1
 
-
-@interface CustomView : UIView
-{
-    UIColor *color;
-}
-@property (nonatomic, retain) UIColor *color;
-
-@end
-@implementation CustomView
-@synthesize color;
-
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame])) {
-        CGFloat r = (rand()%255) / 255.0;
-        CGFloat g = (rand()%255) / 255.0;
-        CGFloat b = (rand()%255) / 255.0;
-        self.color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-    }
-    return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    [color set];
-    CGContextFillRect(context, rect);
-    [[UIColor whiteColor] set];
-    CGContextSetLineWidth(context, 5);
-    CGContextStrokeRect(context, rect);
-}
-
-- (void)dealloc
-{
-    [color release]; color = nil;
-    [super dealloc];
-}
-@end
 
 @implementation SampleViewController
 @synthesize scrollView = scrollView_;
@@ -79,7 +41,8 @@
     NSInteger contentWidth = self.scrollView.frame.size.width - SPACE_WIDTH;
     for (int i = 0; i < CONTENT_NUM; ++i) {
         CGRect frame = CGRectMake((contentWidth + SPACE_WIDTH) * i + SPACE_WIDTH / 2, 0, contentWidth, 460);
-        CustomView *v = [[CustomView alloc] initWithFrame:frame];
+        DummyView *v = [[DummyView alloc] initWithFrame:frame];
+        v.title = [NSString stringWithFormat:@"View%d", i + 1];
         [self.scrollView addSubview:v];
         [v release];
     }
