@@ -9,17 +9,20 @@
 #import "DummyView.h"
 
 
+@interface DummyView ()
+- (UIColor *)randomColor;
+@end
+
 @implementation DummyView
 @synthesize color;
 @synthesize title;
+@synthesize drawWhiteRect;
 
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
-        CGFloat r = (arc4random() % 255) / 255.0;
-        CGFloat g = (arc4random() % 255) / 255.0;
-        CGFloat b = (arc4random() % 255) / 255.0;
-        self.color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+        self.color = [self randomColor];
+        self.drawWhiteRect = YES;
     }
     return self;
 }
@@ -28,11 +31,16 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    [color set];
-    CGContextFillRect(context, rect);
-    [[UIColor whiteColor] set];
-    CGContextSetLineWidth(context, 5);
-    CGContextStrokeRect(context, rect);
+    if (!self.color) {
+        [[self randomColor] set];
+        CGContextFillRect(context, rect);
+    }
+
+    if (self.isDrawWhiteRect) {
+        [[UIColor whiteColor] set];
+        CGContextSetLineWidth(context, 5);
+        CGContextStrokeRect(context, rect);
+    }
 
     if (title) {
         [[UIColor blackColor] set];
@@ -53,4 +61,13 @@
     [color release]; color = nil;
     [super dealloc];
 }
+
+- (UIColor *)randomColor
+{
+    CGFloat r = (arc4random() % 255) / 255.0;
+    CGFloat g = (arc4random() % 255) / 255.0;
+    CGFloat b = (arc4random() % 255) / 255.0;
+    return [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+}
+
 @end

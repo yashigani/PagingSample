@@ -10,6 +10,7 @@
 
 
 @interface SampleViewController : UIViewController
+<UIScrollViewDelegate>
 {
     UIScrollView *scrollView_;
 }

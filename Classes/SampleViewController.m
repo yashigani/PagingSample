@@ -43,6 +43,7 @@
         CGRect frame = CGRectMake((contentWidth + SPACE_WIDTH) * i + SPACE_WIDTH / 2, 0, contentWidth, 460);
         DummyView *v = [[DummyView alloc] initWithFrame:frame];
         v.title = [NSString stringWithFormat:@"View%d", i + 1];
+        v.color = nil;
         [self.scrollView addSubview:v];
         [v release];
     }
