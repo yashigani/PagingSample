@@ -10,9 +10,10 @@
 #import "DummyView.h"
 
 #define SPACE_WIDTH 20
-#define CONTENT_NUM 5
+#define CONTENT_SIZE 420
+#define CONTENT_NUM 10
 
-//#define REVEALS 1
+#define REVEALS 1
 
 
 @implementation SampleViewController
@@ -39,8 +40,10 @@
 {
     [super viewDidLoad];
     NSInteger contentWidth = self.scrollView.frame.size.width - SPACE_WIDTH;
+    NSInteger y = roundf((self.scrollView.frame.size.height - CONTENT_SIZE) / 2);
     for (int i = 0; i < CONTENT_NUM; ++i) {
-        CGRect frame = CGRectMake((contentWidth + SPACE_WIDTH) * i + SPACE_WIDTH / 2, 0, contentWidth, 460);
+        CGRect frame = {(contentWidth + SPACE_WIDTH) * i + SPACE_WIDTH / 2, y, contentWidth, CONTENT_SIZE};
+
         DummyView *v = [[DummyView alloc] initWithFrame:frame];
         v.title = [NSString stringWithFormat:@"View%d", i + 1];
         v.color = nil;
