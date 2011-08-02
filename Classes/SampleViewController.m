@@ -13,7 +13,7 @@
 #define CONTENT_SIZE 420
 #define CONTENT_NUM 10
 
-#define REVEALS 1
+//#define REVEALS 1
 
 
 @implementation SampleViewController
@@ -30,6 +30,7 @@
     self.scrollView = [[[UIScrollView alloc] initWithFrame:frame] autorelease];
     self.scrollView.clipsToBounds = NO;
     self.scrollView.pagingEnabled = YES;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
 #ifdef REVEALS
     self.scrollView.backgroundColor = [UIColor blackColor];
 #endif
